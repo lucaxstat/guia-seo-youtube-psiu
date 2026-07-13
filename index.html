@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guia SEO Operacional: Desflop 2026</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen bg-slate-950 text-slate-200 font-sans p-6 sm:p-12">
+    <div class="max-w-4xl mx-auto">
+        <header class="mb-10 border-b border-slate-800 pb-6">
+            <h1 class="text-3xl sm:text-4xl font-extrabold text-white mb-2">Guia SEO Operacional: Desflop 2026</h1>
+            <p class="text-slate-400 text-lg">Procedimentos técnicos estruturados para recuperação algorítmica do Canal do Psiu.</p>
+        </header>
+
+        <section class="bg-slate-900 rounded-xl p-6 mb-8 border border-slate-800 shadow-lg">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-xl font-bold text-emerald-400">Progresso de Lançamento (VSAT)</h2>
+                <span id="progress-text" class="text-xl font-bold text-white">0%</span>
+            </div>
+            <div class="w-full bg-slate-800 rounded-full h-4 mb-2">
+                <div id="progress-bar" class="bg-emerald-500 h-4 rounded-full transition-all duration-500" style="width: 0%"></div>
+            </div>
+            <p class="text-sm text-slate-500">Cumpra todas as etapas antes de alterar o status do vídeo para "Público".</p>
+        </section>
+
+        <section id="task-list" class="space-y-4">
+            <!-- As tarefas serão inseridas aqui pelo JS -->
+        </section>
+    </div>
+
+    <script>
+        const tasks = [
+            { id: 1, category: 'Otimização de Retenção', text: 'Hook inicial de 8 segundos estabelecido sem vinhetas demoradas.', completed: false },
+            { id: 2, category: 'Otimização de CTR', text: 'Thumbnail limpa com alto contraste, rosto emotivo e máximo de 4 palavras-chave.', completed: false },
+            { id: 3, category: 'Otimização de CTR', text: 'Thumbnail testada em resolução de 320px (Mobile-First) via A/B Testing nativo.', completed: false },
+            { id: 4, category: 'Search Pivot', text: 'Título desenhado para "Intenção de Busca" (Focado no nicho original da neurodiversidade).', completed: false },
+            { id: 5, category: 'Tráfego Cruzado', text: 'Corte de impacto vertical (Short) gerado e vinculado (Traffic Bridge) ao vídeo principal.', completed: false },
+            { id: 6, category: 'Tráfego Cruzado', text: 'Postagem na Aba Comunidade programada para aquecer "inscritos zumbis" antes do lançamento.', completed: false },
+            { id: 7, category: 'Internacionalização', text: 'Metadados (Título e Descrição) traduzidos manualmente para inglês/espanhol para apoiar o Auto-Dubbing de IA.', completed: false },
+            { id: 8, category: 'Internacionalização', text: 'Legendas (.SRT) nos idiomas correspondentes submetidas no painel de controle.', completed: false }
+        ];
+
+        function renderTasks() {
+            const list = document.getElementById('task-list');
+            list.innerHTML = '';
+            let completedCount = 0;
+
+            tasks.forEach(task => {
+                if (task.completed) completedCount++;
+
+                const div = document.createElement('div');
+                div.className = `flex items-start gap-4 p-4 rounded-lg border cursor-pointer transition-colors duration-200 ${task.completed ? 'bg-emerald-900/20 border-emerald-500/30' : 'bg-slate-900 border-slate-700 hover:border-slate-500'}`;
+                div.onclick = () => {
+                    task.completed = !task.completed;
+                    renderTasks();
+                };
+
+                div.innerHTML = `
+                    <div class="mt-1 flex-shrink-0">
+                        <div class="w-6 h-6 rounded border flex items-center justify-center ${task.completed ? 'bg-emerald-500 border-emerald-500 text-white' : 'border-slate-500 bg-transparent'}">
+                            ${task.completed ? '<svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>' : ''}
+                        </div>
+                    </div>
+                    <div>
+                        <span class="text-xs font-semibold uppercase tracking-wider ${task.completed ? 'text-emerald-400' : 'text-blue-400'}">${task.category}</span>
+                        <p class="text-base mt-1 ${task.completed ? 'text-slate-400 line-through' : 'text-slate-200'}">${task.text}</p>
+                    </div>
+                `;
+                list.appendChild(div);
+            });
+
+            const progress = Math.round((completedCount / tasks.length) * 100);
+            document.getElementById('progress-bar').style.width = `${progress}%`;
+            document.getElementById('progress-text').innerText = `${progress}%`;
+        }
+
+        renderTasks();
+    </script>
+</body>
+</html>
