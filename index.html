@@ -2,301 +2,516 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="theme-color" content="#0b0f19">
     <title>Desflop 2026: Engenharia de Otimização (SEO Avançado)</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Inter:wght@400;600;800;900&display=swap');
-        body { font-family: 'Inter', sans-serif; background-color: #0b0f19; color: #cbd5e1; }
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: #0b0f19; 
+            color: #cbd5e1;
+            -webkit-tap-highlight-color: transparent;
+        }
         .code-font { font-family: 'Fira Code', monospace; }
-        .glass-panel { background: rgba(30, 41, 59, 0.6); backdrop-filter: blur(12px); border: 1px solid rgba(71, 85, 105, 0.4); box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5); }
-        .level-up-anim { transition: all 0.3s ease; }
-        .level-up-anim:hover { transform: translateY(-2px); box-shadow: 0 10px 25px -5px rgba(16, 185, 129, 0.4); }
-        .hidden-level { display: none; }
+        .glass-panel { 
+            background: rgba(30, 41, 59, 0.75); 
+            backdrop-filter: blur(16px); 
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(71, 85, 105, 0.4); 
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5); 
+        }
+        .level-up-anim { transition: transform 0.2s ease, box-shadow 0.2s ease; }
+        .level-up-anim:active { transform: scale(0.98); }
+        @media (min-width: 768px) {
+            .level-up-anim:hover { transform: translateY(-2px); box-shadow: 0 10px 25px -5px rgba(16, 185, 129, 0.4); }
+        }
+        .hidden-level { display: none !important; }
         .hud-active { background-color: #1e293b; border-color: #10b981; color: #34d399; box-shadow: 0 0 15px rgba(16, 185, 129, 0.2); }
         .hud-inactive { background-color: #0f172a; border-color: #334155; color: #475569; }
-        .img-mask { mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 70%, rgba(0,0,0,0) 100%); -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 70%, rgba(0,0,0,0) 100%); }
+        .img-mask { mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 60%, rgba(0,0,0,0) 100%); -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 60%, rgba(0,0,0,0) 100%); }
+        
+        /* Otimização Mobile: Rolagem invisível e suave */
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
     </style>
 </head>
-<body class="min-h-screen p-4 sm:p-8">
+<body class="min-h-screen sm:p-6 md:p-8">
 
-    <div class="max-w-6xl mx-auto space-y-8">
+    <div class="max-w-6xl mx-auto space-y-6 sm:space-y-8 pb-12">
         
-        <!-- HUD / Header -->
-        <header class="glass-panel p-6 rounded-2xl flex flex-col md:flex-row justify-between items-center gap-6 border-b-4 border-b-emerald-500 sticky top-4 z-50">
-            <div>
-                <h1 class="text-3xl font-black text-white tracking-tight uppercase flex items-center gap-3">
-                    <svg class="w-8 h-8 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+        <!-- HUD / Header Flutuante (Otimizado para Mobile) -->
+        <header id="main-hud" class="glass-panel p-4 sm:p-6 rounded-b-2xl sm:rounded-2xl flex flex-col md:flex-row justify-between items-start md:items-center gap-4 sm:gap-6 border-b-4 border-b-emerald-500 sticky top-0 sm:top-2 z-50 w-full transition-all">
+            <div class="flex-shrink-0">
+                <h1 class="text-xl sm:text-2xl md:text-3xl font-black text-white tracking-tight uppercase flex items-center gap-2 sm:gap-3">
+                    <svg class="w-6 h-6 sm:w-8 sm:h-8 text-emerald-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
                     Otimização Sistêmica
                 </h1>
-                <p class="text-slate-400 text-sm mt-1 code-font">v2026.4 // Engenharia de Retenção e Diálogo Algorítmico</p>
+                <p class="text-slate-400 text-xs sm:text-sm mt-1 code-font truncate">v2026.5 // Engenharia de Retenção</p>
             </div>
             <div class="w-full md:w-auto">
-                <div class="flex justify-between md:justify-end gap-2 mb-2">
-                    <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Etapas Operacionais</span>
-                    <span id="progress-percent" class="text-xs font-bold text-emerald-500 code-font">16%</span>
+                <div class="flex justify-between items-end gap-2 mb-2">
+                    <span class="text-[10px] sm:text-xs font-bold text-slate-500 uppercase tracking-wider">Etapas Operacionais</span>
+                    <span id="progress-percent" class="text-xs font-bold text-emerald-500 code-font">11%</span>
                 </div>
-                <div class="flex gap-2 w-full md:w-auto overflow-x-auto pb-2 md:pb-0">
-                    <button onclick="jumpTo(1)" id="hud-1" class="w-10 h-10 shrink-0 rounded hud-active flex items-center justify-center font-bold text-sm transition-colors">1</button>
-                    <button onclick="jumpTo(2)" id="hud-2" class="w-10 h-10 shrink-0 rounded hud-inactive flex items-center justify-center font-bold text-sm transition-colors">2</button>
-                    <button onclick="jumpTo(3)" id="hud-3" class="w-10 h-10 shrink-0 rounded hud-inactive flex items-center justify-center font-bold text-sm transition-colors">3</button>
-                    <button onclick="jumpTo(4)" id="hud-4" class="w-10 h-10 shrink-0 rounded hud-inactive flex items-center justify-center font-bold text-sm transition-colors">4</button>
-                    <button onclick="jumpTo(5)" id="hud-5" class="w-10 h-10 shrink-0 rounded hud-inactive flex items-center justify-center font-bold text-sm transition-colors">5</button>
-                    <button onclick="jumpTo(6)" id="hud-6" class="w-10 h-10 shrink-0 rounded hud-inactive flex items-center justify-center font-bold text-sm transition-colors">6</button>
+                <div class="flex gap-2 w-full overflow-x-auto pb-1 no-scrollbar scroll-smooth">
+                    <!-- Touch targets definidos para mín 44px (w-11) para adequação ergonômica -->
+                    <button onclick="jumpTo(1)" id="hud-1" class="w-11 h-11 shrink-0 rounded hud-active flex items-center justify-center font-bold text-sm transition-colors border">1</button>
+                    <button onclick="jumpTo(2)" id="hud-2" class="w-11 h-11 shrink-0 rounded hud-inactive flex items-center justify-center font-bold text-sm transition-colors border">2</button>
+                    <button onclick="jumpTo(3)" id="hud-3" class="w-11 h-11 shrink-0 rounded hud-inactive flex items-center justify-center font-bold text-sm transition-colors border">3</button>
+                    <button onclick="jumpTo(4)" id="hud-4" class="w-11 h-11 shrink-0 rounded hud-inactive flex items-center justify-center font-bold text-sm transition-colors border">4</button>
+                    <button onclick="jumpTo(5)" id="hud-5" class="w-11 h-11 shrink-0 rounded hud-inactive flex items-center justify-center font-bold text-sm transition-colors border">5</button>
+                    <button onclick="jumpTo(6)" id="hud-6" class="w-11 h-11 shrink-0 rounded hud-inactive flex items-center justify-center font-bold text-sm transition-colors border">6</button>
+                    <button onclick="jumpTo(7)" id="hud-7" class="w-11 h-11 shrink-0 rounded hud-inactive flex items-center justify-center font-bold text-sm transition-colors border">7</button>
+                    <button onclick="jumpTo(8)" id="hud-8" class="w-11 h-11 shrink-0 rounded hud-inactive flex items-center justify-center font-bold text-sm transition-colors border">8</button>
+                    <button onclick="jumpTo(9)" id="hud-9" class="w-11 h-11 shrink-0 rounded hud-inactive flex items-center justify-center font-bold text-sm transition-colors border">9</button>
                 </div>
             </div>
         </header>
 
-        <!-- LEVEL 1: Diagnóstico -->
-        <section id="lvl-1" class="glass-panel rounded-2xl overflow-hidden transition-opacity duration-500">
-            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=2000&h=400" alt="Data Analytics" class="w-full h-48 object-cover img-mask opacity-60">
-            <div class="p-6 sm:p-10 -mt-16 relative z-10">
-                <div class="inline-block px-3 py-1 bg-red-500/20 border border-red-500/50 text-red-400 rounded-full text-xs font-bold uppercase mb-4">Etapa 1: Isolamento de Falhas</div>
-                <h2 class="text-3xl font-bold text-white mb-6">A Matemática do Flop e a Armadilha da Base Inativa</h2>
-                
-                <div class="grid md:grid-cols-2 gap-8 text-slate-300 text-sm leading-relaxed">
-                    <div>
-                        <p class="mb-4">O colapso no alcance orgânico não é uma punição manual (shadowban)[cite: 1]. Trata-se de uma falha de correspondência matemática. O algoritmo de 2026 valida um novo upload testando-o com uma parcela inicial da sua base de inscritos[cite: 1].</p>
-                        <p>Se o canal possui 671 mil inscritos oriundos de conteúdos históricos (Sindrome de Tourette e colaborações) e o upload atual diverge dessa expectativa, a base ignora a miniatura. A <strong>Taxa de Cliques (CTR) despenca para menos de 2%</strong> na primeira hora[cite: 1].</p>
-                    </div>
-                    <div class="bg-slate-900/80 p-5 rounded-xl border border-slate-700">
-                        <h3 class="font-bold text-white mb-2 flex items-center gap-2">
-                            <svg class="w-5 h-5 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
-                            O Erro do Botão Hype
-                        </h3>
-                        <p>A ferramenta "Hype" foi introduzida globalmente em 2026 para canais impulsionarem vídeos via engajamento de fãs devotos[cite: 1]. Acionar isso em uma base fria é inútil. O sistema necessita de sinalização humana proativa e genuína[cite: 1]. Não dependa do Hype; concentre-se na reestruturação da taxa de correspondência.</p>
-                    </div>
-                </div>
-                <button onclick="advance(2)" class="mt-8 bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3 px-8 rounded-lg w-full md:w-auto flex items-center justify-center gap-2 transition-colors">
-                    Iniciar Correção (Avançar) <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                </button>
-            </div>
-        </section>
-
-        <!-- LEVEL 2: Search Pivot -->
-        <section id="lvl-2" class="glass-panel rounded-2xl overflow-hidden hidden-level transition-opacity duration-500">
-            <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=2000&h=400" alt="Global Search Network" class="w-full h-48 object-cover img-mask opacity-60">
-            <div class="p-6 sm:p-10 -mt-16 relative z-10">
-                <div class="inline-block px-3 py-1 bg-amber-500/20 border border-amber-500/50 text-amber-400 rounded-full text-xs font-bold uppercase mb-4">Etapa 2: Aquisição Externa</div>
-                <h2 class="text-3xl font-bold text-white mb-6">Search Pivot (Pivô de Intenção de Busca)</h2>
-                
-                <div class="grid md:grid-cols-2 gap-8 text-slate-300 text-sm leading-relaxed">
-                    <div>
-                        <p class="mb-4">A superfície primária de descoberta (Browse) está bloqueada pelos inscritos inativos. A solução técnica é forçar a entrada pelo mecanismo de busca (YouTube Search), responsável por 35% do tráfego global da plataforma[cite: 1].</p>
-                        <p>A execução exige pautas perenes. Substitua títulos genéricos e recortes aleatórios por materiais puramente focados em intenção informativa (ex: "Desvendando os mistérios por trás dos tiques vocais")[cite: 1]. Não-inscritos buscam isso ativamente, gerando um CTR limpo que reeduca o algoritmo[cite: 1].</p>
-                    </div>
-                    <div>
-                        <ul class="space-y-3">
-                            <li class="flex items-start gap-3 bg-slate-900/50 p-3 rounded border border-slate-700">
-                                <span class="text-amber-500 font-bold mt-1">01.</span>
-                                <div><strong class="text-white block">Regra dos 40 Caracteres:</strong> Palavras-chave centrais devem obrigatoriamente estar posicionadas nos primeiros 40 caracteres do título[cite: 1].</div>
-                            </li>
-                            <li class="flex items-start gap-3 bg-slate-900/50 p-3 rounded border border-slate-700">
-                                <span class="text-amber-500 font-bold mt-1">02.</span>
-                                <div><strong class="text-white block">Minimalismo Visual:</strong> A thumbnail deve ter resolução validada para mobile (320px), conter rosto com expressão de extrema clareza emocional e um limite imperativo de 4 palavras[cite: 1].</div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <button onclick="advance(3)" class="mt-8 bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3 px-8 rounded-lg w-full md:w-auto flex items-center justify-center gap-2 transition-colors">
-                    Aplicar Configuração (Avançar)
-                </button>
-            </div>
-        </section>
-
-        <!-- LEVEL 3: Traffic Bridges -->
-        <section id="lvl-3" class="glass-panel rounded-2xl overflow-hidden hidden-level transition-opacity duration-500">
-            <img src="https://images.unsplash.com/photo-1611162616475-46b635cb6868?auto=format&fit=crop&q=80&w=2000&h=400" alt="Mobile Video Interface" class="w-full h-48 object-cover img-mask opacity-60">
-            <div class="p-6 sm:p-10 -mt-16 relative z-10">
-                <div class="inline-block px-3 py-1 bg-blue-500/20 border border-blue-500/50 text-blue-400 rounded-full text-xs font-bold uppercase mb-4">Etapa 3: Funis Verticais</div>
-                <h2 class="text-3xl font-bold text-white mb-6">Traffic Bridges e a Secção de Shorts</h2>
-                
-                <div class="text-slate-300 text-sm leading-relaxed mb-6">
-                    <p class="mb-4">Em 2026, os motores de recomendação operam de forma dissociada. O sucesso de um Short não influencia a avaliação qualitativa de um vídeo longo[cite: 1]. Com 74% do tráfego consumido em Shorts originário de não-inscritos, o formato vertical opera como armadilha de prospecção[cite: 1].</p>
-                </div>
-
-                <div class="bg-blue-900/10 border border-blue-800/50 p-6 rounded-xl">
-                    <h3 class="text-lg font-bold text-white mb-4">Arquitetura da Ponte de Tráfego:</h3>
-                    <div class="grid sm:grid-cols-3 gap-4">
-                        <div class="bg-slate-900 p-4 rounded-lg border border-slate-700">
-                            <h4 class="text-blue-400 font-bold mb-1">Taxa de Deslizamento</h4>
-                            <p class="text-xs">A métrica prioritária é a "Swipe-Away Rate" nos 3 primeiros segundos. Deve manter-se estritamente abaixo do teto crítico de 20%[cite: 1].</p>
-                        </div>
-                        <div class="bg-slate-900 p-4 rounded-lg border border-slate-700">
-                            <h4 class="text-blue-400 font-bold mb-1">Open Loop (Corte)</h4>
-                            <p class="text-xs">Utilize o limite expandido de 3 minutos de duração de 2026[cite: 1]. Interrompa a narrativa no clímax dramático, forçando curiosidade residual.</p>
-                        </div>
-                        <div class="bg-slate-900 p-4 rounded-lg border border-slate-700">
-                            <h4 class="text-blue-400 font-bold mb-1">Vínculo Direto</h4>
-                            <p class="text-xs">A ferramenta "Vídeo Relacionado" no painel insere um link direto na interface do Short. O tráfego capturado no ápice da curiosidade é escoado para o acervo principal[cite: 1].</p>
-                        </div>
-                    </div>
-                </div>
-                <button onclick="advance(4)" class="mt-8 bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3 px-8 rounded-lg w-full md:w-auto flex items-center justify-center gap-2 transition-colors">
-                    Validar Funil (Avançar)
-                </button>
-            </div>
-        </section>
-
-        <!-- LEVEL 4: Edição e Resolução -->
-        <section id="lvl-4" class="glass-panel rounded-2xl overflow-hidden hidden-level transition-opacity duration-500">
-            <img src="https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?auto=format&fit=crop&q=80&w=2000&h=400" alt="Video Editing Timeline" class="w-full h-48 object-cover img-mask opacity-60">
-            <div class="p-6 sm:p-10 -mt-16 relative z-10">
-                <div class="inline-block px-3 py-1 bg-purple-500/20 border border-purple-500/50 text-purple-400 rounded-full text-xs font-bold uppercase mb-4">Etapa 4: Setup de Retenção Visual</div>
-                <h2 class="text-3xl font-bold text-white mb-6">Tratamento de Arquivos e Ruptura de Padrão</h2>
-                
-                <div class="grid md:grid-cols-2 gap-8 text-slate-300 text-sm leading-relaxed">
-                    <div>
-                        <p class="mb-4">Obras audiovisuais que sustentam retenção igual ou superior a 65% findado o primeiro minuto ativam um incremento colossal de 58% na Duração Média de Visualização total do algoritmo[cite: 1]. O modelo de edição exige rigor.</p>
-                        <p>Considerando que o material original é gravado em resolução <strong>1280x720</strong>, a renderização exige enquadramento cauteloso. Fluxos de trabalho em softwares como DaVinci Resolve ou Vegas Pro devem evitar o escalonamento artificial extremo (upscaling para 4k) que gera perda de nitidez, priorizando recortes de zoom no centro do foco.</p>
-                    </div>
-                    <div class="bg-slate-900/80 p-5 rounded-xl border border-slate-700">
-                        <ul class="space-y-4">
-                            <li>
-                                <strong class="text-white block text-sm">Janela de Consideração (0-8s)</strong>
-                                <span class="text-xs text-slate-400">55% dos espectadores abdicam do material antes de 60 segundos[cite: 1]. Remova cumprimentos e aplique o conceito de "Cold Open".</span>
-                            </li>
-                            <li>
-                                <strong class="text-white block text-sm">Rupturas Cognitivas Periódicas</strong>
-                                <span class="text-xs text-slate-400">Implemente alterações visuais, como alternância de profundidade de lente e letreiros dinâmicos a cada 20 a 30 segundos[cite: 1].</span>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <button onclick="advance(5)" class="mt-8 bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3 px-8 rounded-lg w-full md:w-auto flex items-center justify-center gap-2 transition-colors">
-                    Compilar Edição (Avançar)
-                </button>
-            </div>
-        </section>
-
-        <!-- LEVEL 5: Diálogo Algorítmico -->
-        <section id="lvl-5" class="glass-panel rounded-2xl overflow-hidden hidden-level transition-opacity duration-500">
-            <img src="https://images.unsplash.com/photo-1620825937374-87fc7d6aaf8c?auto=format&fit=crop&q=80&w=2000&h=400" alt="AI Neural Network" class="w-full h-48 object-cover img-mask opacity-60">
-            <div class="p-6 sm:p-10 -mt-16 relative z-10">
-                <div class="inline-block px-3 py-1 bg-pink-500/20 border border-pink-500/50 text-pink-400 rounded-full text-xs font-bold uppercase mb-4">Etapa 5: Interface IA e Metadados</div>
-                <h2 class="text-3xl font-bold text-white mb-6">Conversação Preditiva e Auto-Dubbing</h2>
-                
-                <div class="space-y-6 text-slate-300 text-sm leading-relaxed">
-                    <p>Comunicar-se com a infraestrutura exige sinais quantitativos claros. O YouTube implementou micro-agrupamentos individuais que exigem alimentação regular para funcionar[cite: 1].</p>
+        <!-- Envolvemos todos os levels em uma div para padronizar o espaçamento lateral no mobile -->
+        <div class="px-2 sm:px-0">
+            
+            <!-- LEVEL 1: Diagnóstico -->
+            <section id="lvl-1" class="glass-panel rounded-2xl overflow-hidden transition-opacity duration-300">
+                <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=1200&h=300" fetchpriority="high" alt="Data Analytics" class="w-full h-32 sm:h-48 object-cover img-mask opacity-60">
+                <div class="p-5 sm:p-10 -mt-12 sm:-mt-16 relative z-10">
+                    <div class="inline-block px-3 py-1 bg-red-500/20 border border-red-500/50 text-red-400 rounded-full text-[10px] sm:text-xs font-bold uppercase mb-3 sm:mb-4">Etapa 1: Isolamento de Falhas</div>
+                    <h2 class="text-2xl sm:text-3xl font-bold text-white mb-5">A Matemática do Flop e a Armadilha da Base Inativa</h2>
                     
-                    <div class="grid md:grid-cols-2 gap-6">
-                        <div class="border border-slate-700 bg-slate-900 rounded-lg p-5">
-                            <h3 class="text-pink-400 font-bold mb-2">Ping via Aba Comunidade</h3>
-                            <p class="text-xs">Para "acordar" os inscritos inativos, execute publicações estáticas (enquetes fotográficas) 2 a 3 dias antes do upload do vídeo. Cada voto na enquete é um "ping" que recalibra o algoritmo individual do usuário, aumentando as chances da miniatura aparecer na home dele[cite: 1].</p>
+                    <div class="grid md:grid-cols-2 gap-6 sm:gap-8 text-slate-300 text-sm leading-relaxed">
+                        <div>
+                            <p class="mb-4">O colapso no alcance orgânico não é uma punição manual (shadowban). Trata-se de uma falha de correspondência matemática. O algoritmo valida um novo upload testando-o com uma parcela inicial da sua base de inscritos.</p>
+                            <p>Se o canal possui inscritos oriundos de conteúdos históricos e o upload atual diverge dessa expectativa, a base ignora a miniatura. A <strong>Taxa de Cliques (CTR) despenca para menos de 2%</strong> na primeira hora. O sistema interrompe a distribuição.</p>
                         </div>
-                        <div class="border border-slate-700 bg-slate-900 rounded-lg p-5">
-                            <h3 class="text-pink-400 font-bold mb-2">Falhas do Auto-Dubbing (2026)</h3>
-                            <p class="text-xs">A ferramenta converte o áudio replicando o timbre fisiológico em "Fala Expressiva" para oito dialetos globais[cite: 1]. Contudo, ela <strong>não traduz os metadados</strong>. É obrigatório inserir Títulos, Descrições e enviar legendas (.SRT) nos idiomas correspondentes manualmente, caso contrário, a indexação de buscas internacionais será nula[cite: 1].</p>
+                        <div class="bg-slate-900/80 p-5 rounded-xl border border-slate-700">
+                            <h3 class="font-bold text-white mb-2 flex items-center gap-2 text-red-400">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                                O Erro do Botão Hype
+                            </h3>
+                            <p class="text-xs sm:text-sm">A ferramenta "Hype" foi introduzida para impulsionar vídeos via fãs devotos. Acionar isso em uma base fria é ineficaz. O sistema necessita de sinalização autêntica. Foco na correção da métrica de retenção primária.</p>
                         </div>
                     </div>
-                </div>
-                <button onclick="advance(6)" class="mt-8 bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3 px-8 rounded-lg w-full md:w-auto flex items-center justify-center gap-2 transition-colors">
-                    Sincronizar IA (Avançar)
-                </button>
-            </div>
-        </section>
-
-        <!-- LEVEL 6: Laboratório VSAT -->
-        <section id="lvl-6" class="glass-panel rounded-2xl overflow-hidden hidden-level transition-opacity duration-500">
-            <div class="p-6 sm:p-10">
-                <div class="flex justify-between items-start mb-6">
-                    <div>
-                        <div class="inline-block px-3 py-1 bg-emerald-500/20 border border-emerald-500/50 text-emerald-400 rounded-full text-xs font-bold uppercase mb-4">Etapa 6: Terminal Final</div>
-                        <h2 class="text-3xl font-bold text-white">Laboratório de Análise VSAT</h2>
-                    </div>
-                    <div class="text-right hidden sm:block">
-                        <span class="text-xs text-slate-400 block uppercase tracking-wider mb-1">Avaliação Preditiva</span>
-                        <span class="text-2xl font-black text-emerald-500 code-font">VSAT_OK</span>
-                    </div>
-                </div>
-                
-                <p class="text-slate-300 text-sm mb-6">A Pontuação de Satisfação do Espectador (VSAT) ultrapassou a retenção temporal bruta na hierarquia do algoritmo[cite: 1]. O sistema avalia a profundidade da sessão[cite: 1]. Insira a transcrição bruta do seu material abaixo para segmentação estrutural primária.</p>
-
-                <div class="flex flex-col gap-4">
-                    <textarea id="script-input" class="w-full h-40 bg-[#0f172a] border border-slate-700 rounded-lg p-4 text-emerald-400 focus:outline-none focus:border-emerald-500 transition-colors code-font text-sm shadow-inner" placeholder="> Acesso ao banco de dados: Aguardando input do roteiro ou transcrição (Mínimo 30 palavras)..."></textarea>
-                    
-                    <button onclick="analyzeScript()" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3 px-8 rounded-lg transition-colors w-full uppercase tracking-wider text-sm level-up-anim shadow-lg shadow-emerald-900/50">
-                        Processar Segmentação Textual
+                    <button onclick="advance(2)" class="mt-6 sm:mt-8 bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3 sm:py-4 px-8 rounded-xl w-full flex items-center justify-center gap-2 transition-colors level-up-anim">
+                        Avançar para Etapa 2 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                     </button>
                 </div>
+            </section>
 
-                <!-- Resultado -->
-                <div id="analysis-result" class="mt-8 hidden border-t border-slate-700 pt-6">
-                    <h3 class="text-lg font-bold text-white mb-4">Desfragmentação e Alocação</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                        <div class="bg-[#0f172a] border-l-4 border-l-red-500 p-4 rounded-r-lg">
-                            <h4 class="text-white font-bold mb-1 text-sm uppercase">Fator de Abandono (0-10s)</h4>
-                            <p id="res-hook" class="text-xs text-slate-400 italic mb-3 line-clamp-3">...</p>
-                            <span class="text-[10px] uppercase font-bold text-red-500">Status: Consideração Imediata</span>
+            <!-- LEVEL 2: Search Pivot -->
+            <section id="lvl-2" class="glass-panel rounded-2xl overflow-hidden hidden-level transition-opacity duration-300">
+                <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=1200&h=300" loading="lazy" alt="Search Network" class="w-full h-32 sm:h-48 object-cover img-mask opacity-60">
+                <div class="p-5 sm:p-10 -mt-12 sm:-mt-16 relative z-10">
+                    <div class="inline-block px-3 py-1 bg-amber-500/20 border border-amber-500/50 text-amber-400 rounded-full text-[10px] sm:text-xs font-bold uppercase mb-3 sm:mb-4">Etapa 2: Aquisição Externa</div>
+                    <h2 class="text-2xl sm:text-3xl font-bold text-white mb-5">Search Pivot (Pivô de Intenção de Busca)</h2>
+                    
+                    <div class="grid md:grid-cols-2 gap-6 sm:gap-8 text-slate-300 text-sm leading-relaxed">
+                        <div>
+                            <p class="mb-4">A superfície primária (Browse) está bloqueada. A manobra requer forçar a entrada pelo YouTube Search, que concentra 35% do volume global.</p>
+                            <p>O foco editorial deve direcionar-se a pautas perenes de intenção informativa. Isso atrai não-inscritos motivados, garantindo CTR limpo e reativando a recomendação natural.</p>
                         </div>
-                        <div class="bg-[#0f172a] border-l-4 border-l-amber-500 p-4 rounded-r-lg">
-                            <h4 class="text-white font-bold mb-1 text-sm uppercase">Corpo de Retenção</h4>
-                            <p id="res-body" class="text-xs text-slate-400 italic mb-3 line-clamp-3">...</p>
-                            <span class="text-[10px] uppercase font-bold text-amber-500">Ação: Inserir Ruptura Visual</span>
+                        <div>
+                            <ul class="space-y-3">
+                                <li class="flex items-start gap-3 bg-slate-900/50 p-3 rounded border border-slate-700">
+                                    <span class="text-amber-500 font-bold mt-0.5">01.</span>
+                                    <div class="text-xs sm:text-sm"><strong class="text-white block">Posicionamento:</strong> A palavra-chave principal deve estar obrigatoriamente nos primeiros 40 caracteres do título.</div>
+                                </li>
+                                <li class="flex items-start gap-3 bg-slate-900/50 p-3 rounded border border-slate-700">
+                                    <span class="text-amber-500 font-bold mt-0.5">02.</span>
+                                    <div class="text-xs sm:text-sm"><strong class="text-white block">Limpeza Visual:</strong> Thumbnail com máximo de 4 palavras, testada para telas móveis (320px) e contrastes cromáticos agressivos.</div>
+                                </li>
+                            </ul>
                         </div>
-                        <div class="bg-[#0f172a] border-l-4 border-l-emerald-500 p-4 rounded-r-lg">
-                            <h4 class="text-white font-bold mb-1 text-sm uppercase">Aumento de Sessão</h4>
-                            <p id="res-end" class="text-xs text-slate-400 italic mb-3 line-clamp-3">...</p>
-                            <span class="text-[10px] uppercase font-bold text-emerald-500">Comando: Call To Action Interno</span>
+                    </div>
+                    <button onclick="advance(3)" class="mt-6 sm:mt-8 bg-emerald-600 text-white font-bold py-3 sm:py-4 px-8 rounded-xl w-full transition-colors level-up-anim">Avançar para Etapa 3</button>
+                </div>
+            </section>
+
+            <!-- LEVEL 3: Traffic Bridges -->
+            <section id="lvl-3" class="glass-panel rounded-2xl overflow-hidden hidden-level transition-opacity duration-300">
+                <img src="https://images.unsplash.com/photo-1611162616475-46b635cb6868?auto=format&fit=crop&q=80&w=1200&h=300" loading="lazy" alt="Mobile Interface" class="w-full h-32 sm:h-48 object-cover img-mask opacity-60">
+                <div class="p-5 sm:p-10 -mt-12 sm:-mt-16 relative z-10">
+                    <div class="inline-block px-3 py-1 bg-blue-500/20 border border-blue-500/50 text-blue-400 rounded-full text-[10px] sm:text-xs font-bold uppercase mb-3 sm:mb-4">Etapa 3: Funis Verticais</div>
+                    <h2 class="text-2xl sm:text-3xl font-bold text-white mb-5">Traffic Bridges e o Formato Shorts</h2>
+                    
+                    <p class="text-slate-300 text-xs sm:text-sm leading-relaxed mb-6">O algoritmo dissocia integralmente o desempenho de Shorts e vídeos horizontais. Com 74% da audiência vertical provinda de não-inscritos, os Shorts atuam estritamente como ferramentas de aquisição agressiva de tráfego.</p>
+
+                    <div class="bg-blue-900/10 border border-blue-800/50 p-4 sm:p-6 rounded-xl">
+                        <h3 class="text-base sm:text-lg font-bold text-white mb-4">Mecânica da Ponte de Tráfego:</h3>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
+                            <div class="bg-slate-900 p-4 rounded-lg border border-slate-700">
+                                <h4 class="text-blue-400 font-bold mb-1 text-sm">Retenção Inicial</h4>
+                                <p class="text-xs text-slate-400">Mantenha a Taxa de Deslizamento Inicial (Swipe-Away) abaixo de 20% com cortes abruptos nos 3 primeiros segundos.</p>
+                            </div>
+                            <div class="bg-slate-900 p-4 rounded-lg border border-slate-700">
+                                <h4 class="text-blue-400 font-bold mb-1 text-sm">Open Loop (Ruptura)</h4>
+                                <p class="text-xs text-slate-400">Utilize o limite expandido de 3 minutos e interrompa o vídeo no clímax para forçar o clique gerado por curiosidade.</p>
+                            </div>
+                            <div class="bg-slate-900 p-4 rounded-lg border border-slate-700">
+                                <h4 class="text-blue-400 font-bold mb-1 text-sm">Vínculo Direto</h4>
+                                <p class="text-xs text-slate-400">Utilize o recurso de "Vídeo Relacionado" para vincular a interface do Short ao conteúdo longo, redirecionando tráfego.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <button onclick="advance(4)" class="mt-6 sm:mt-8 bg-emerald-600 text-white font-bold py-3 sm:py-4 px-8 rounded-xl w-full transition-colors level-up-anim">Avançar para Etapa 4</button>
+                </div>
+            </section>
+
+            <!-- LEVEL 4: Edição -->
+            <section id="lvl-4" class="glass-panel rounded-2xl overflow-hidden hidden-level transition-opacity duration-300">
+                <img src="https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?auto=format&fit=crop&q=80&w=1200&h=300" loading="lazy" alt="Video Editing" class="w-full h-32 sm:h-48 object-cover img-mask opacity-60">
+                <div class="p-5 sm:p-10 -mt-12 sm:-mt-16 relative z-10">
+                    <div class="inline-block px-3 py-1 bg-purple-500/20 border border-purple-500/50 text-purple-400 rounded-full text-[10px] sm:text-xs font-bold uppercase mb-3 sm:mb-4">Etapa 4: Configuração de Timeline</div>
+                    <h2 class="text-2xl sm:text-3xl font-bold text-white mb-5">Tratamento e Ruptura Cognitiva</h2>
+                    
+                    <div class="grid md:grid-cols-2 gap-6 sm:gap-8 text-slate-300 text-sm leading-relaxed">
+                        <div>
+                            <p class="mb-4">Vídeos que sustentam 65% de retenção no primeiro minuto recebem bonificação algorítmica. O corte deve ser incisivo, sem locuções padronizadas ou vinhetas.</p>
+                            <p>No software de edição (DaVinci/Vegas), mantenha o projeto na resolução nativa <strong>1280x720</strong>. Evite upscaling forçado, pois a degradação penaliza a avaliação dos encoders da plataforma.</p>
+                        </div>
+                        <div class="bg-slate-900/80 p-4 sm:p-5 rounded-xl border border-slate-700">
+                            <ul class="space-y-4">
+                                <li>
+                                    <strong class="text-white block text-sm">Hook (0-10s)</strong>
+                                    <span class="text-xs text-slate-400">Elimine silêncios no áudio. Articule a promessa temática imediatamente no frame 1.</span>
+                                </li>
+                                <li>
+                                    <strong class="text-white block text-sm">Dinamismo Visual</strong>
+                                    <span class="text-xs text-slate-400">Altere a profundidade focal ou insira letreiros dinâmicos rigorosamente a cada 20-30 segundos.</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <button onclick="advance(5)" class="mt-6 sm:mt-8 bg-emerald-600 text-white font-bold py-3 sm:py-4 px-8 rounded-xl w-full transition-colors level-up-anim">Avançar para Etapa 5</button>
+                </div>
+            </section>
+
+            <!-- LEVEL 5: Dublagem IA -->
+            <section id="lvl-5" class="glass-panel rounded-2xl overflow-hidden hidden-level transition-opacity duration-300">
+                <img src="https://images.unsplash.com/photo-1620825937374-87fc7d6aaf8c?auto=format&fit=crop&q=80&w=1200&h=300" loading="lazy" alt="Neural Network" class="w-full h-32 sm:h-48 object-cover img-mask opacity-60">
+                <div class="p-5 sm:p-10 -mt-12 sm:-mt-16 relative z-10">
+                    <div class="inline-block px-3 py-1 bg-pink-500/20 border border-pink-500/50 text-pink-400 rounded-full text-[10px] sm:text-xs font-bold uppercase mb-3 sm:mb-4">Etapa 5: Expansão Transnacional</div>
+                    <h2 class="text-2xl sm:text-3xl font-bold text-white mb-5">Auto-Dubbing e Localização Manual</h2>
+                    
+                    <div class="space-y-5 sm:space-y-6 text-slate-300 text-sm leading-relaxed">
+                        <p>A tecnologia "Fala Expressiva" do YouTube replica o áudio em dialetos primários. Contudo, <strong>ela não traduz metadados</strong>.</p>
+                        
+                        <div class="bg-slate-900 border border-slate-700 p-4 sm:p-5 rounded-xl">
+                            <h3 class="text-pink-400 font-bold mb-3 text-sm sm:text-base">Ação Interventiva Mandatória</h3>
+                            <ul class="list-disc pl-5 space-y-2 text-xs sm:text-sm">
+                                <li>Sem tradução manual do título e descrição no subpainel, o algoritmo ignora pesquisas internacionais.</li>
+                                <li>Gere e submeta arquivos <code>.SRT</code> precisos para reter o público mobile que consome mídia silenciada.</li>
+                                <li>A indexação idiomática nas Tags é requerida.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <button onclick="advance(6)" class="mt-6 sm:mt-8 bg-emerald-600 text-white font-bold py-3 sm:py-4 px-8 rounded-xl w-full transition-colors level-up-anim">Avançar para Etapa 6</button>
+                </div>
+            </section>
+
+            <!-- LEVEL 6: VSAT Roteiro -->
+            <section id="lvl-6" class="glass-panel rounded-2xl overflow-hidden hidden-level transition-opacity duration-300">
+                <div class="p-5 sm:p-10">
+                    <div class="flex flex-col sm:flex-row justify-between items-start mb-5 sm:mb-6 gap-2">
+                        <div>
+                            <div class="inline-block px-3 py-1 bg-emerald-500/20 border border-emerald-500/50 text-emerald-400 rounded-full text-[10px] sm:text-xs font-bold uppercase mb-3">Etapa 6: Análise Estrutural</div>
+                            <h2 class="text-2xl sm:text-3xl font-bold text-white">Laboratório VSAT</h2>
+                        </div>
+                        <div class="sm:text-right bg-slate-900/50 p-2 rounded sm:bg-transparent sm:p-0 w-full sm:w-auto">
+                            <span class="text-[10px] sm:text-xs text-slate-400 block uppercase tracking-wider mb-0.5">Avaliação Preditiva</span>
+                            <span class="text-lg sm:text-2xl font-black text-emerald-500 code-font">VSAT_OK</span>
+                        </div>
+                    </div>
+                    
+                    <p class="text-slate-300 text-xs sm:text-sm mb-5">A Pontuação de Satisfação do Espectador (VSAT) sobrepõe-se à retenção temporal bruta. Insira a transcrição inicial para segmentação estrutural primária.</p>
+
+                    <div class="flex flex-col gap-4">
+                        <textarea id="script-input" class="w-full h-32 sm:h-40 bg-[#0f172a] border border-slate-700 rounded-lg p-3 sm:p-4 text-emerald-400 focus:outline-none focus:border-emerald-500 transition-colors code-font text-xs sm:text-sm resize-y" placeholder="> Input: Aguardando texto do roteiro (Mínimo 30 palavras)..."></textarea>
+                        <button onclick="analyzeScript()" class="bg-emerald-600 text-white font-bold py-3 sm:py-4 px-8 rounded-xl transition-colors w-full uppercase tracking-wider text-xs sm:text-sm level-up-anim">Processar Roteiro</button>
+                    </div>
+
+                    <div id="analysis-result" class="mt-6 sm:mt-8 hidden border-t border-slate-700 pt-5 sm:pt-6">
+                        <h3 class="text-base sm:text-lg font-bold text-white mb-4">Alocação de Retenção</h3>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
+                            <div class="bg-[#0f172a] border-l-4 border-l-red-500 p-3 sm:p-4 rounded-r-lg shadow-sm">
+                                <h4 class="text-white font-bold mb-1 text-xs sm:text-sm uppercase">Janela (0-10s)</h4>
+                                <p id="res-hook" class="text-[11px] sm:text-xs text-slate-400 italic mb-2 line-clamp-3">...</p>
+                                <span class="text-[9px] sm:text-[10px] uppercase font-bold text-red-500 block mt-auto">Ação: Proposição de Valor</span>
+                            </div>
+                            <div class="bg-[#0f172a] border-l-4 border-l-amber-500 p-3 sm:p-4 rounded-r-lg shadow-sm">
+                                <h4 class="text-white font-bold mb-1 text-xs sm:text-sm uppercase">Desenvolvimento</h4>
+                                <p id="res-body" class="text-[11px] sm:text-xs text-slate-400 italic mb-2 line-clamp-3">...</p>
+                                <span class="text-[9px] sm:text-[10px] uppercase font-bold text-amber-500 block mt-auto">Ação: Ruptura Visual</span>
+                            </div>
+                            <div class="bg-[#0f172a] border-l-4 border-l-emerald-500 p-3 sm:p-4 rounded-r-lg shadow-sm">
+                                <h4 class="text-white font-bold mb-1 text-xs sm:text-sm uppercase">Sessão</h4>
+                                <p id="res-end" class="text-[11px] sm:text-xs text-slate-400 italic mb-2 line-clamp-3">...</p>
+                                <span class="text-[9px] sm:text-[10px] uppercase font-bold text-emerald-500 block mt-auto">Ação: Call to Action Interno</span>
+                            </div>
+                        </div>
+                    </div>
+                    <button onclick="advance(7)" class="mt-6 sm:mt-8 bg-emerald-600 text-white font-bold py-3 sm:py-4 px-8 rounded-xl w-full transition-colors level-up-anim">Avançar para Etapa 7</button>
+                </div>
+            </section>
+
+            <!-- LEVEL 7: Títulos e Tags -->
+            <section id="lvl-7" class="glass-panel rounded-2xl overflow-hidden hidden-level transition-opacity duration-300">
+                <div class="p-5 sm:p-10">
+                    <div class="inline-block px-3 py-1 bg-cyan-500/20 border border-cyan-500/50 text-cyan-400 rounded-full text-[10px] sm:text-xs font-bold uppercase mb-3">Etapa 7: Sintaxe de Metadados</div>
+                    <h2 class="text-2xl sm:text-3xl font-bold text-white mb-5">Validação Título & Entidades</h2>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-8">
+                        <div class="bg-slate-900 border border-slate-700 p-4 sm:p-5 rounded-xl">
+                            <h3 class="text-base sm:text-lg font-bold text-white mb-2">Simulador CTR (Mobile)</h3>
+                            <p class="text-[11px] sm:text-xs text-slate-400 mb-4">Títulos não devem ultrapassar 60 caracteres. A palavra-chave opera nas primeiras 3 palavras.</p>
+                            <input type="text" id="title-input" onkeyup="analyzeTitle()" class="w-full bg-[#0f172a] border border-slate-600 rounded p-3 text-white text-sm focus:outline-none focus:border-cyan-500" placeholder="Insira a proposta de título...">
+                            <div class="mt-2 flex justify-between items-center text-[10px] sm:text-xs">
+                                <span id="title-char-count" class="text-slate-400">0/60 caracteres</span>
+                                <span id="title-status" class="font-bold text-slate-500">Aguardando input</span>
+                            </div>
+                        </div>
+
+                        <div class="bg-slate-900 border border-slate-700 p-4 sm:p-5 rounded-xl">
+                            <h3 class="text-base sm:text-lg font-bold text-white mb-2">Processador de Tags</h3>
+                            <p class="text-[11px] sm:text-xs text-slate-400 mb-4">Gera grafos semânticos para "Vídeos Relacionados". Insira a variável primária.</p>
+                            <input type="text" id="topic-input" class="w-full bg-[#0f172a] border border-slate-600 rounded p-3 text-white text-sm focus:outline-none focus:border-cyan-500 mb-3" placeholder="Ex: Tourette Omegle">
+                            <button onclick="generateTags()" class="w-full bg-cyan-600 text-white font-bold py-3 sm:py-2 rounded transition-colors text-sm level-up-anim">Processar Matriz</button>
+                        </div>
+                    </div>
+
+                        <div id="tag-results" class="mt-5 sm:mt-6 hidden bg-[#0f172a] p-4 sm:p-5 rounded-xl border border-slate-700">
+                        <h4 class="text-white font-bold mb-2 text-sm">Matriz Otimizada (Exportação):</h4>
+                        <textarea id="tag-output" class="w-full h-20 sm:h-24 bg-slate-900 text-cyan-400 p-2 sm:p-3 rounded border border-slate-600 text-xs sm:text-sm code-font resize-none" readonly></textarea>
+                        <p class="text-[10px] sm:text-xs text-slate-500 mt-2">Estrutura: (Macro) + (Busca) + (Lateral).</p>
+                    </div>
+
+                    <button onclick="advance(8)" class="mt-6 sm:mt-8 bg-emerald-600 text-white font-bold py-3 sm:py-4 px-8 rounded-xl w-full transition-colors level-up-anim">Avançar para Etapa 8</button>
+                </div>
+            </section>
+
+            <!-- LEVEL 8: Mineração Textual -->
+            <section id="lvl-8" class="glass-panel rounded-2xl overflow-hidden hidden-level transition-opacity duration-300">
+                <div class="p-5 sm:p-10">
+                    <div class="inline-block px-3 py-1 bg-indigo-500/20 border border-indigo-500/50 text-indigo-400 rounded-full text-[10px] sm:text-xs font-bold uppercase mb-3">Etapa 8: Profundidade de Sessão</div>
+                    <h2 class="text-2xl sm:text-3xl font-bold text-white mb-5">Mineração Lexical</h2>
+                    <p class="text-slate-300 text-xs sm:text-sm mb-5 leading-relaxed">A infraestrutura avalia os metadados pré-dobra. Hiperlinks no comentário fixado atuam objetivamente no aumento da métrica <em>Session Contribution</em>.</p>
+
+                    <div class="space-y-4 sm:space-y-5">
+                        <div>
+                            <h3 class="text-white font-bold mb-2 text-sm sm:text-base">1. Área Nobre da Descrição (2 Linhas Iniciais)</h3>
+                            <textarea id="desc-input" class="w-full h-20 sm:h-24 bg-slate-900 border border-slate-700 rounded-lg p-3 text-slate-300 focus:border-indigo-500 code-font text-xs sm:text-sm resize-y" placeholder="Texto inicial..."></textarea>
+                        </div>
+                        <div>
+                            <h3 class="text-white font-bold mb-2 text-sm sm:text-base">2. Comentário Primário (Fixado)</h3>
+                            <textarea id="comment-input" class="w-full h-16 sm:h-20 bg-slate-900 border border-slate-700 rounded-lg p-3 text-slate-300 focus:border-indigo-500 code-font text-xs sm:text-sm resize-y" placeholder="Inserir comentário de ancoragem..."></textarea>
+                        </div>
+                        <button onclick="analyzeLexical()" class="w-full bg-indigo-600 text-white font-bold py-3 sm:py-4 rounded-xl transition-colors text-sm sm:text-base level-up-anim">Executar Varredura Lexical</button>
+                    </div>
+
+                    <div id="lexical-results" class="mt-5 sm:mt-6 hidden grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
+                        <div class="bg-[#0f172a] border border-slate-700 p-3 sm:p-4 rounded-lg">
+                            <span id="status-desc" class="block font-bold text-xs sm:text-sm mb-1"></span>
+                            <p id="msg-desc" class="text-[11px] sm:text-xs text-slate-400"></p>
+                        </div>
+                        <div class="bg-[#0f172a] border border-slate-700 p-3 sm:p-4 rounded-lg">
+                            <span id="status-comment" class="block font-bold text-xs sm:text-sm mb-1"></span>
+                            <p id="msg-comment" class="text-[11px] sm:text-xs text-slate-400"></p>
+                        </div>
+                    </div>
+
+                    <button onclick="advance(9)" class="mt-6 sm:mt-8 bg-emerald-600 text-white font-bold py-3 sm:py-4 px-8 rounded-xl w-full transition-colors level-up-anim">Avançar para Etapa 9</button>
+                </div>
+            </section>
+
+            <!-- LEVEL 9: Pings -->
+            <section id="lvl-9" class="glass-panel rounded-2xl overflow-hidden hidden-level transition-opacity duration-300">
+                <div class="p-5 sm:p-10">
+                    <div class="inline-block px-3 py-1 bg-fuchsia-500/20 border border-fuchsia-500/50 text-fuchsia-400 rounded-full text-[10px] sm:text-xs font-bold uppercase mb-3">Etapa 9: Reativação de Base</div>
+                    <h2 class="text-2xl sm:text-3xl font-bold text-white mb-5">Engenharia de Interação (Comunidade)</h2>
+                    
+                    <p class="text-slate-300 text-xs sm:text-sm mb-5 leading-relaxed">Toda interação na Aba Comunidade recalibra o modelo preditivo individual do usuário. Agende 48h antes do upload primário.</p>
+
+                    <div class="bg-slate-900 border border-slate-700 p-4 sm:p-5 rounded-xl">
+                        <h3 class="text-white font-bold mb-3 text-sm sm:text-base">Sintetizador de Enquetes de Reengajamento</h3>
+                        <input type="text" id="poll-topic" class="w-full bg-[#0f172a] border border-slate-600 rounded p-3 text-white text-sm mb-3 focus:outline-none focus:border-fuchsia-500" placeholder="Variável temática (Ex: tiques motores)">
+                        <button onclick="generatePoll()" class="w-full bg-fuchsia-600 text-white font-bold py-3 rounded-xl transition-colors text-sm level-up-anim">Gerar Estruturas de Votação</button>
+                    </div>
+
+                    <div id="poll-results" class="mt-5 sm:mt-6 hidden flex-col gap-3 sm:gap-4">
+                        <div class="bg-[#0f172a] p-3 sm:p-4 rounded border-l-4 border-fuchsia-500 shadow-sm">
+                            <p class="text-[11px] sm:text-xs text-fuchsia-400 font-bold mb-1">Gatilho de Antecipação (Inserir imagem)</p>
+                            <p class="text-white text-xs sm:text-sm whitespace-pre-wrap" id="poll-1"></p>
+                        </div>
+                        <div class="bg-[#0f172a] p-3 sm:p-4 rounded border-l-4 border-fuchsia-500 shadow-sm">
+                            <p class="text-[11px] sm:text-xs text-fuchsia-400 font-bold mb-1">Gatilho de Escolha Rápida</p>
+                            <p class="text-white text-xs sm:text-sm whitespace-pre-wrap" id="poll-2"></p>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
-
+            </section>
+        </div>
     </div>
 
     <script>
-        // Lógica de progressão HUD
+        // Sistema Base
         function updateHUD(level) {
-            const percentages = [16, 33, 50, 66, 83, 100];
-            document.getElementById('progress-percent').innerText = `${percentages[level-1]}%`;
+            const percentages = [11, 22, 33, 44, 55, 66, 77, 88, 100];
+            const percentEl = document.getElementById('progress-percent');
+            if (percentEl) percentEl.innerText = `${percentages[level-1]}%`;
 
-            for(let i = 1; i <= 6; i++) {
+            for(let i = 1; i <= 9; i++) {
                 const btn = document.getElementById(`hud-${i}`);
-                if(i <= level) {
-                    btn.classList.remove('hud-inactive');
-                    btn.classList.add('hud-active');
-                } else {
-                    btn.classList.remove('hud-active');
-                    btn.classList.add('hud-inactive');
+                if(btn) {
+                    if(i <= level) {
+                        btn.className = `w-11 h-11 shrink-0 rounded hud-active flex items-center justify-center font-bold text-sm transition-colors border`;
+                    } else {
+                        btn.className = `w-11 h-11 shrink-0 rounded hud-inactive flex items-center justify-center font-bold text-sm transition-colors border`;
+                    }
                 }
             }
         }
 
         function jumpTo(level) {
-            for(let i = 1; i <= 6; i++) {
-                document.getElementById(`lvl-${i}`).classList.add('hidden-level');
+            // Oculta todos os níveis
+            for(let i = 1; i <= 9; i++) {
+                const sec = document.getElementById(`lvl-${i}`);
+                if(sec) sec.classList.add('hidden-level');
             }
-            document.getElementById(`lvl-${level}`).classList.remove('hidden-level');
+            
+            const targetSection = document.getElementById(`lvl-${level}`);
+            if (targetSection) {
+                targetSection.classList.remove('hidden-level');
+            }
+            
             updateHUD(level);
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            
+            // Centraliza o botão do HUD em telas pequenas
+            const activeBtn = document.getElementById(`hud-${level}`);
+            if (activeBtn) activeBtn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+
+            // Rola para o topo do container calculando o offset dinâmico do sticky header
+            setTimeout(() => {
+                const headerOffset = document.getElementById('main-hud').offsetHeight;
+                const elementPosition = targetSection.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.scrollY - headerOffset - 24; // 24px margem
+                
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
+                });
+            }, 50);
         }
 
-        function advance(nextLevel) {
-            jumpTo(nextLevel);
+        function advance(nextLevel) { 
+            jumpTo(nextLevel); 
         }
 
-        // Simulação do Laboratório VSAT
+        // Módulo 6 (VSAT)
         function analyzeScript() {
             const text = document.getElementById('script-input').value;
             const resultBox = document.getElementById('analysis-result');
             
             if(text.trim().split(/\s+/).length < 20) {
-                alert("Erro Algorítmico: Volume de dados insuficiente. Insira material denso (min 20 palavras).");
+                alert("Erro Operacional: O volume de texto é insuficiente para processamento.");
                 return;
             }
 
             const words = text.split(/\s+/);
-            const hookWords = words.slice(0, 25).join(' ') + (words.length > 25 ? '...' : '');
-            const bodyWords = words.slice(25, 80).join(' ') + (words.length > 80 ? '...' : '');
-            const endWords = words.length > 100 ? '... ' + words.slice(-20).join(' ') : '[Sinal Ausente - Estrutura incompleta detectada]';
+            const hookWords = words.slice(0, 20).join(' ') + (words.length > 20 ? '...' : '');
+            const bodyWords = words.slice(20, 60).join(' ') + (words.length > 60 ? '...' : '');
+            const endWords = words.length > 60 ? '... ' + words.slice(-15).join(' ') : '[Sinal Ausente]';
 
             document.getElementById('res-hook').innerText = `"${hookWords}"`;
             document.getElementById('res-body').innerText = bodyWords ? `"${bodyWords}"` : '[Sinal Ausente]';
             document.getElementById('res-end').innerText = `"${endWords}"`;
             
             resultBox.classList.remove('hidden');
+        }
+
+        // Módulo 7 (Título & Tags)
+        function analyzeTitle() {
+            const text = document.getElementById('title-input').value;
+            const count = text.length;
+            const counterElement = document.getElementById('title-char-count');
+            const statusElement = document.getElementById('title-status');
+            
+            counterElement.innerText = `${count}/60`;
+            
+            if (count === 0) {
+                statusElement.innerText = "Aguardando input";
+                statusElement.className = "font-bold text-slate-500";
+            } else if (count < 25) {
+                statusElement.innerText = "Sinal fraco";
+                statusElement.className = "font-bold text-red-500";
+            } else if (count >= 25 && count <= 60) {
+                statusElement.innerText = "Otimizado (Mobile)";
+                statusElement.className = "font-bold text-emerald-500";
+            } else {
+                statusElement.innerText = "Risco Truncamento";
+                statusElement.className = "font-bold text-yellow-500";
+            }
+        }
+
+        function generateTags() {
+            const topic = document.getElementById('topic-input').value.trim();
+            if(!topic) {
+                alert("Insira uma variável temática.");
+                return;
+            }
+            
+            const broad = "Sindrome de Tourette, Tourette, tiques motores";
+            const specific = `${topic}, ${topic} reação, cortes do psiu ${topic}`;
+            const lateral = "dilera, omegle engraçado, peculiares";
+            
+            document.getElementById('tag-output').value = `${broad}, ${specific}, ${lateral}`;
+            document.getElementById('tag-results').classList.remove('hidden');
+        }
+
+        // Módulo 8 (Lexical)
+        function analyzeLexical() {
+            const desc = document.getElementById('desc-input').value;
+            const comment = document.getElementById('comment-input').value;
+            
+            const descStatus = document.getElementById('status-desc');
+            const descMsg = document.getElementById('msg-desc');
+            const commentStatus = document.getElementById('status-comment');
+            const commentMsg = document.getElementById('msg-comment');
+
+            if(desc.length < 30) {
+                descStatus.innerText = "Falha de Densidade Lexical";
+                descStatus.className = "block font-bold text-xs sm:text-sm mb-1 text-red-500";
+                descMsg.innerText = "Necessário incorporar palavras-chave na área de visibilidade primária.";
+            } else {
+                descStatus.innerText = "Validação Lexical Completa";
+                descStatus.className = "block font-bold text-xs sm:text-sm mb-1 text-emerald-500";
+                descMsg.innerText = "Volume textual pré-dobra atende aos limites indexadores requeridos.";
+            }
+
+            const hasLink = comment.includes("http") || comment.includes("www") || comment.includes("youtube.com");
+            if(!hasLink || comment.length < 5) {
+                commentStatus.innerText = "Ausência de Roteamento de Interface";
+                commentStatus.className = "block font-bold text-xs sm:text-sm mb-1 text-red-500";
+                commentMsg.innerText = "Insira uma URL (link de Playlist) para processar métrica de Session Contribution.";
+            } else {
+                commentStatus.innerText = "Roteamento Confirmado";
+                commentStatus.className = "block font-bold text-xs sm:text-sm mb-1 text-emerald-500";
+                commentMsg.innerText = "URL detectada. Tráfego capturado estenderá a Sessão na plataforma.";
+            }
+
+            document.getElementById('lexical-results').classList.remove('hidden');
+        }
+
+        // Módulo 9 (Pings)
+        function generatePoll() {
+            const topic = document.getElementById('poll-topic').value.trim() || "o tema de hoje";
+            
+            const poll1 = `Reação genuína em contexto sobre ${topic}:\n\n- Humor defensivo\n- Bloqueio cognitivo\n- Identificação imediata\n- (Comentar abaixo)`;
+            const poll2 = `Fator atrativo primário sobre ${topic}:\n\n- Reações imprevistas\n- Estrutura explicativa\n- Fator de bastidores\n- Humor instintivo`;
+            
+            document.getElementById('poll-1').innerText = poll1;
+            document.getElementById('poll-2').innerText = poll2;
+            document.getElementById('poll-results').classList.remove('hidden');
         }
     </script>
 </body>
